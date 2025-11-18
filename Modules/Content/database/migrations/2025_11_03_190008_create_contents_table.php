@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->text('excerpt')->nullable();
             $table->text('description')->nullable();
-            $table->boolean('is_published')->default(false);
+            $table->boolean('published')->default(false);
             $table->timestamp('published_at')->nullable();
             $table->timestamps();
         });
@@ -23,6 +23,7 @@ return new class extends Migration
 
     public function down(): void
     {
+        Schema::dropIfExists('content_media');
         Schema::dropIfExists('contents');
     }
 };

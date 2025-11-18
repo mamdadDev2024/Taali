@@ -1,14 +1,11 @@
 <header class="border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-[#111] text-gray-900 dark:text-gray-100 transition-colors duration-300 shadow-sm">
     <div class="max-w-7xl mx-auto flex items-center justify-between px-4 py-3">
 
-        <!-- عنوان صفحه -->
         <h1 class="text-lg font-semibold tracking-tight">{{ $title ?? 'صفحه' }}</h1>
 
-        <!-- بخش اکشن‌ها -->
         <div class="flex items-center gap-3">
 
             @auth
-                <!-- User Dropdown -->
                 <div class="relative" x-data="{ open: false }">
                     <button @click="open = !open"
                             class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-800 transition-shadow shadow-sm">
@@ -22,7 +19,6 @@
                         <x-heroicon-o-chevron-down class="w-4 h-4 opacity-70 dark:opacity-100" />
                     </button>
 
-                    <!-- Dropdown Menu -->
                     <div x-show="open" @click.outside="open = false"
                          x-transition:enter="transition ease-out duration-200"
                          x-transition:enter-start="opacity-0 scale-95"
@@ -95,12 +91,12 @@
                 </a>
             @endauth
 
-            <!-- Dark Mode Toggle -->
-            <button @click="isDark = !isDark; localStorage.setItem('darkMode', isDark)"
+            <button @click="toggleDark()"
                     class="p-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors text-accent hover:bg-accent-1/20">
                 <x-heroicon-o-moon x-show="!isDark" class="w-5 h-5" />
                 <x-heroicon-o-sun x-show="isDark" class="w-5 h-5" />
             </button>
+
 
         </div>
     </div>

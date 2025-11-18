@@ -17,6 +17,7 @@
         "livewire/livewire": "^3.6",
         "masmerise/livewire-toaster": "^2.8",
         "mhmiton/laravel-modules-livewire": "^5.2",
+        "phpdocumentor/type-resolver": "^1.10",
         "ralphjsmit/laravel-seo": "^1.7",
         "spatie/laravel-permission": "^6.23",
         "spatie/laravel-translatable": "^6.11"

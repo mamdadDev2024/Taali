@@ -2,18 +2,18 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="rtl"
       x-data="themeManager()"
       x-init="init()"
-      :class="isDark ? 'dark' : ''"
+      :class="{ 'dark': isDark }"
       class="scroll-smooth antialiased transition-colors duration-300 min-h-screen flex flex-col">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>{{ $title ?? config('app.name') }}</title>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 
+    <!-- Font -->
     <style>
         @font-face {
             font-family: 'Vazir';
@@ -21,61 +21,73 @@
             font-weight: normal;
             font-style: normal;
         }
+
+        body {
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .background-gradient {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #f0f0f0, #d9d9d9);
+            transition: background 0.5s ease;
+            z-index: -1;
+        }
+
+        .dark .background-gradient {
+            background: linear-gradient(135deg, #111111, #222222);
+        }
     </style>
 </head>
 
-<body class="flex flex-col min-h-screen relative transition-colors duration-300">
+<body class="flex flex-col min-h-screen transition-colors duration-300 bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100">
 
-<!-- Soft gradient background -->
-<div class="background-gradient pointer-events-none"></div>
+    <!-- Gradient Background -->
+    <div class="background-gradient"></div>
 
-<div class="relative z-10 flex-1 flex flex-col">
+    <div class="relative z-10 flex-1 flex flex-col">
 
-    @if(isset($header))
-        {{ $header }}
-    @else
-        @include('components.partials.header')
-    @endif
+        <!-- Header -->
+        @if(isset($header))
+            <div class="w-full px-4 sm:px-6 lg:px-8 py-4 bg-white dark:bg-gray-800 shadow-md transition-colors duration-300">
+                {{ $header }}
+            </div>
+        @else
+            @include('components.partials.header')
+        @endif
 
-    <main class="flex-1 container mx-auto px-4 md:px-6 lg:px-8">
-        {{ $slot }}
-    </main>
+        <!-- Main Content -->
+        <main class="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+            {{ $slot }}
+        </main>
 
-    @include('components.partials.footer')
-</div>
+        <!-- Footer -->
+        <footer class="w-full px-4 sm:px-6 lg:px-8 py-4 bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300 transition-colors duration-300">
+            @include('components.partials.footer')
+        </footer>
+    </div>
 
-@livewireScripts
-<x-toaster-hub />
-<livewire:confirm-modal />
+    @livewireScripts
+    <x-toaster-hub />
+    <livewire:confirm-modal />
 
-<!-- Theme Manager -->
-<script>
-    function themeManager() {
-        return {
-            palette: localStorage.getItem('palette') || 'spiritual',
-            isDark: JSON.parse(localStorage.getItem('darkMode')) ?? false,
-            initialized: false,
-
-            init() {
-                if (this.initialized) return;
-                this.initialized = true;
-
-                document.documentElement.setAttribute('data-theme', this.palette);
-            },
-
-            toggleDark() {
-                this.isDark = !this.isDark;
-                localStorage.setItem('darkMode', this.isDark);
-            },
-
-            switchPalette(newPalette) {
-                this.palette = newPalette;
-                localStorage.setItem('palette', newPalette);
-                document.documentElement.setAttribute('data-theme', newPalette);
+    <script>
+        function themeManager() {
+            return {
+                isDark: false,
+                init() {
+                    this.isDark = localStorage.theme === 'dark'
+                                || (!localStorage.theme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+                    document.documentElement.classList.toggle('dark', this.isDark);
+                },
+                toggleDark() {
+                    this.isDark = !this.isDark;
+                    document.documentElement.classList.toggle('dark', this.isDark);
+                    localStorage.setItem('theme', this.isDark ? 'dark' : 'light');
+                }
             }
         }
-    }
-</script>
+    </script>
 
 </body>
 </html>

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\Partials;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class partials.user-dropdown extends Component
+class Header extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class partials.user-dropdown extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.partials.user-dropdown');
+        return view('components.partials.header');
     }
 }

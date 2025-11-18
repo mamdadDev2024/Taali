@@ -10,13 +10,14 @@ public function up(): void
     Schema::create('media', function (Blueprint $table) {
             $table->id();
             $table->morphs('mediable');
+            $table->string('status')->nullable();
             $table->string('name')->nullable();
-            $table->string('path')->nullable()->unique();
+            $table->string('path')->nullable();
             $table->string('disk')->default('public')->nullable();
             $table->string('type')->default('image')->nullable();
             $table->string('mime_type')->nullable();
             $table->unsignedBigInteger('size')->nullable();
-
+            $table->json('metadata')->nullable();
             $table->timestamps();
         });
     }

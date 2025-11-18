@@ -1,8 +1,5 @@
 <div class="max-w-md mx-auto bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md">
     <h2 class="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">{{ __('Update Profile') }}</h2>
-
-    {{-- @dd(Auth::User()) --}}
-
     <form wire:submit.prevent="updateUser" class="space-y-4">
 
 
