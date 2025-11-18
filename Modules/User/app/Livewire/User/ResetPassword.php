@@ -10,7 +10,7 @@ use Livewire\Component;
 use Devrabiul\ToastMagic\Facades\ToastMagic;
 use Modules\User\Services\UserService;
 
-#[Layout('user::components.layouts.master')]
+#[Layout('components.layouts.master')]
 #[Title('Reset Password')]
 class ResetPassword extends Component
 {

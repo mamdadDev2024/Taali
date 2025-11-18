@@ -3,8 +3,12 @@
 namespace Modules\User\Livewire\User;
 
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
+#[Layout('components.layouts.master')]
+#[Title('Settings')]
 class Settings extends Component
 {
     public $theme;

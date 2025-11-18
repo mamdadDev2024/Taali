@@ -5,8 +5,12 @@ namespace Modules\Content\Livewire;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Devrabiul\ToastMagic\Facades\ToastMagic;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 use Modules\Content\Services\ContentService;
 
+#[Layout('components.layouts.master')]
+#[Title('Content Create')]
 class ContentCreate extends Component
 {
     #[Validate('required|string|max:255')]
